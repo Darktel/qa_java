@@ -21,7 +21,7 @@ public class LionParamtrizeTest {
     @ParameterizedTest
     @DisplayName("Параметризованный тест на создание экземпляра Lion")
     @ValueSource(strings = {"Самец", "Самка"})
-    void testCreateLion(String sex) throws Exception {
+    void createLionTest(String sex) throws Exception {
         Lion lion1 = new Lion(sex, feline);
         assertNotNull(lion1);
         if (sex.equals("Самец"))

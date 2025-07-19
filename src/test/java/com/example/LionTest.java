@@ -19,7 +19,7 @@ class LionTest {
 
     @Test
     @DisplayName("Проверка метода getKittens")
-    void testGetKittens() throws Exception {
+    void getKittensTestWithMock() throws Exception {
 
         Lion lion1 = new Lion("Самец", feline);
 
@@ -32,7 +32,7 @@ class LionTest {
 
     @Test
     @DisplayName("Проверка метода getFood")
-    void testGetFood() throws Exception {
+    void getFoodTest() throws Exception {
         Lion lion1 = new Lion("Самец", feline);
 
         List<String> expectedFood = List.of("Животные", "Птицы", "Рыба");
@@ -44,13 +44,13 @@ class LionTest {
     }
 
     @Test
-    void testDoesHaveManePassed() throws Exception {
+    void dDoesHaveManeTestPassed() throws Exception {
         Lion lion1 = new Lion("Самец", feline);
         assertTrue(lion1.doesHaveMane());
     }
 
     @Test
-    void testDoesHaveManeFailed() throws Exception {
+    void doesHaveManeTestFailed() throws Exception {
         Lion lion1 = new Lion("Самка", feline);
         assertFalse(lion1.doesHaveMane());
     }
@@ -58,7 +58,7 @@ class LionTest {
 
 
     @Test
-    void testDoesHaveManeInvalidSex() {
+    void doesHaveManeInvalidSexTest() {
         Exception exception = assertThrows(Exception.class, () -> new Lion("Неизвестно", feline));
         assertEquals("Используйте допустимые значения пола животного - самец или самка", exception.getMessage());
     }
