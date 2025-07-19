@@ -8,8 +8,7 @@ public class main {
         Lion lion = new Lion("Самец", new Feline());
         lion.getKittens();
         lion.getKittens();
-        lion.getClass();
-        lion.getFood();
+        System.out.printf(String.valueOf(lion.getFood()));
 
     }
 }
