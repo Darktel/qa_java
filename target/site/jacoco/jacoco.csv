@@ -2,5 +2,5 @@ GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_
 animal-farm,com.example,Feline,0,15,0,0,0,5,0,5,0,5
 animal-farm,com.example,Animal,17,16,2,2,5,4,3,2,1,2
 animal-farm,com.example,Lion,0,42,0,4,0,12,0,6,0,4
-animal-farm,com.example,main,32,0,0,0,8,0,2,0,2,0
+animal-farm,com.example,main,29,0,0,0,7,0,2,0,2,0
 animal-farm,com.example,Cat,0,12,0,0,0,5,0,3,0,3
