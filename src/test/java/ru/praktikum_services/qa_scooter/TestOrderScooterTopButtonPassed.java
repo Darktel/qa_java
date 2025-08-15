@@ -79,7 +79,7 @@ public class TestOrderScooterTopButtonPassed {
         MainPage mainPage = new MainPage();
         By[] selectorsButtonOrder = {mainPage.getButtonOrderScooterTop(), mainPage.getButtonOrderScooterMiddle()};
         String[] FirstName = {"Александр", "user2", "Петя"};
-        String[] LastName = {"Гусев", "LastName2", " Бубнов"};
+        String[] LastName = {"Гусев", "LastName2", "Бубнов"};
         String[] Date = {"30.08.2025", "01.02.2025", "31.12.2027"};
         String[] colorScooter = {"any", "grey"};
         // Ограниченно кол-вом блоков div доступных для выбора.
