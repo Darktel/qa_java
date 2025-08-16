@@ -76,18 +76,18 @@ public class TestOrderScooterTopButtonPassed {
         By[] selectorsButtonOrder = {
                 mainPage.getButtonOrderScooterTop(),
                 mainPage.getButtonOrderScooterMiddle()};
-        String[] FirstName = {"Александр", "user2", "Петя"};
-        String[] LastName = {"Гусев", "LastName2", "Бубнов"};
-        String[] Date = {"30.08.2025", "01.02.2025", "31.12.2027"};
+        String[] firstName = {"Александр", "user2", "Петя"};
+        String[] lastName = {"Гусев", "LastName2", "Бубнов"};
+        String[] date = {"30.08.2025", "01.02.2025", "31.12.2027"};
         String[] colorScooter = {"any", "grey"};
         // Ограниченно кол-вом блоков div доступных для выбора.
         Integer[] daysOrderPeriod = {1, 7};
 
 
         return Stream.of(selectorsButtonOrder)
-                .flatMap(loc -> Stream.of(FirstName)
-                        .flatMap(data1 -> Stream.of(LastName)
-                                .flatMap(data2 -> Stream.of(Date)
+                .flatMap(loc -> Stream.of(firstName)
+                        .flatMap(data1 -> Stream.of(lastName)
+                                .flatMap(data2 -> Stream.of(date)
                                         .flatMap(data3 -> Stream.of(colorScooter)
                                                 .flatMap(data4 -> Stream.of(daysOrderPeriod)
                                                         .map(data5 -> Arguments.of(loc, data1, data2, data3, data4, data5)))))));
