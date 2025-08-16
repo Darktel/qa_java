@@ -63,7 +63,6 @@ public class TestOrderScooterTopButtonPassed {
         orderPage.clickButtonYes();
 //        Thread.sleep(2000);
         // Проверяем что заказ был успешно оформлен
-        assertTrue(true, String.valueOf(orderPage.checkOrderScooterVisible()));
         assertTrue(orderPage.checkOrderScooterText().contains("Заказ оформлен"));
 
     }
