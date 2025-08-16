@@ -11,19 +11,19 @@ public class DriverFactory {
 
     public void initDriver() {
         if ("chrome".equals(System.getProperty("browser"))) {
-            SetupChrome();
+            setupChrome();
         }
         else {
-            SetupFirefox();
+            setupFirefox();
         }
     }
 
-    public void SetupFirefox() {
+    public void setupFirefox() {
         driver = new org.openqa.selenium.firefox.FirefoxDriver();
         driver.manage().window().maximize();
     }
 
-    public void SetupChrome() {
+    public void setupChrome() {
         driver = new org.openqa.selenium.chrome.ChromeDriver();
         driver.manage().window().maximize();
     }
