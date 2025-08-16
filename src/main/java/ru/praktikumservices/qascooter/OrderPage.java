@@ -1,4 +1,4 @@
-package ru.praktikum_services.qa_scooter;
+package ru.praktikumservices.qascooter;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
