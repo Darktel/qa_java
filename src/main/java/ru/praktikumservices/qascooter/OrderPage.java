@@ -122,7 +122,7 @@ public class OrderPage {
         return this;
     }
 
-    public OrderPage sendTextForCurrier(String comment) {
+    public OrderPage sendTextForCourier(String comment) {
         driver.findElement(inputComment).sendKeys(comment);
         return this;
     }

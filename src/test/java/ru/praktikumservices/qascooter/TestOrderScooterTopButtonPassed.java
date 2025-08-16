@@ -56,7 +56,7 @@ public class TestOrderScooterTopButtonPassed {
         orderPage.fillDateOrder(Date)
                 .selectPeriod(daysOrderPeriod)
                 .selectColorScooter(collorScooter)
-                .sendTextForCurrier("123")
+                .sendTextForCourier("123")
                 .clickButtonNextFormOrder();
         // Подтверждаем заказ
         orderPage.wait.until(ExpectedConditions.visibilityOfElementLocated(orderPage.windowNumberOrder));
