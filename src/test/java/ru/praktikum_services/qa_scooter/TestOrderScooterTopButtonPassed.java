@@ -34,14 +34,10 @@ public class TestOrderScooterTopButtonPassed {
                                                 String LastName,
                                                 String Date,
                                                 String collorScooter,
-                                                Integer daysOrderPeriod) {
+                                                Integer daysOrderPeriod) throws InterruptedException {
         WebDriver driver = driverFactory.getDriver();
         MainPage mainPage = new MainPage(driver);
         OrderPage orderPage = new OrderPage(driver);
-
-//        // Кнопка "Заказать самокат"
-//        By buttonOrderScooterTop = mainPage.getButtonOrderScooterTop();
-//        By buttonOrderScooterMiddle = mainPage.getButtonOrderScooterMiddle();
 
 
         // нажимаем на кнопку "Заказать"
@@ -77,7 +73,9 @@ public class TestOrderScooterTopButtonPassed {
 
     static Stream<Arguments> provideLocatorsAndData() {
         MainPage mainPage = new MainPage();
-        By[] selectorsButtonOrder = {mainPage.getButtonOrderScooterTop(), mainPage.getButtonOrderScooterMiddle()};
+        By[] selectorsButtonOrder = {
+                mainPage.getButtonOrderScooterTop(),
+                mainPage.getButtonOrderScooterMiddle()};
         String[] FirstName = {"Александр", "user2", "Петя"};
         String[] LastName = {"Гусев", "LastName2", "Бубнов"};
         String[] Date = {"30.08.2025", "01.02.2025", "31.12.2027"};
