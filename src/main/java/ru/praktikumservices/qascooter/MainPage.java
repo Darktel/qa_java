@@ -15,6 +15,23 @@ public class MainPage {
     private final By buttonOrderScooterTop = By.xpath("//button[@class='Button_Button__ra12g']");
     private final By buttonOrderScooterMiddle = By.xpath("//button[@class='Button_Button__ra12g Button_UltraBig__UU3Lp']");
     private final WebDriverWait wait;
+    final By accordionElement1 = By.xpath("//*[@id='accordion__heading-0']");
+    final By accordionElement1Paragraph = By.xpath("//*[@id='accordion__panel-0']/p");
+    final By accordionElement2 = By.xpath(  "//*[@id='accordion__heading-1']");
+    final By accordionElement2Paragraph = By.xpath("//*[@id='accordion__panel-1']/p");
+    final By accordionElement3 = By.xpath( "//*[@id='accordion__heading-2']");
+    final By accordionElement3Paragraph = By.xpath("//*[@id='accordion__panel-2']/p");
+    final By accordionElement4 = By.xpath( "//*[@id='accordion__heading-3']");
+    final By accordionElement4Paragraph = By.xpath("//*[@id='accordion__panel-3']/p");
+    final By accordionElement5 = By.xpath( "//*[@id='accordion__heading-4']");
+    final By accordionElement5Paragraph = By.xpath("//*[@id='accordion__panel-4']/p");
+    final By accordionElement6 = By.xpath( "//*[@id='accordion__heading-5']");
+    final By accordionElement6Paragraph = By.xpath("//*[@id='accordion__panel-5']/p");
+    final By accordionElement7 = By.xpath( "//*[@id='accordion__heading-6']");
+    final By accordionElement7Paragraph = By.xpath("//*[@id='accordion__panel-6']/p");
+    final By accordionElement8 = By.xpath( "//*[@id='accordion__heading-7']");
+    final By accordionElement8Paragraph = By.xpath("//*[@id='accordion__panel-7']/p");
+
 
 
     public MainPage() {
