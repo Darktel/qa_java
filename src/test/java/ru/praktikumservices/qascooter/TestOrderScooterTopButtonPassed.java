@@ -13,7 +13,6 @@ import java.util.stream.Stream;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TestOrderScooterTopButtonPassed {
-    private final DriverFactory driverFactory = new DriverFactory();
 
     @RegisterExtension
     private DriverExtension driverExtension = new DriverExtension();
@@ -24,10 +23,10 @@ public class TestOrderScooterTopButtonPassed {
     @ParameterizedTest
     @MethodSource("provideLocatorsAndData")
     public void testOrderScooterTopButtonPassed(By selectorsButtonOrder,
-                                                String FirstName,
-                                                String LastName,
+                                                String firstName,
+                                                String lastName,
                                                 String Date,
-                                                String collorScooter,
+                                                String colorScooter,
                                                 Integer daysOrderPeriod) throws InterruptedException {
         String url = "https://qa-scooter.praktikum-services.ru/";
         WebDriver driver = driverExtension.getDriver();
@@ -41,8 +40,8 @@ public class TestOrderScooterTopButtonPassed {
         // установить sleep 1 секунды
 //        Thread.sleep(1000);
         // заполняем поля формы заказа
-        orderPage.fillFirstName(FirstName)
-                .fillLastName(LastName)
+        orderPage.fillFirstName(firstName)
+                .fillLastName(lastName)
                 .fillAddress("ул. Пушкина")
                 .checkMetroStation()
                 .fillPhone("+71234567890")
@@ -51,7 +50,7 @@ public class TestOrderScooterTopButtonPassed {
         orderPage.clickButtonNextFormOrder();
         orderPage.fillDateOrder(Date)
                 .selectPeriod(daysOrderPeriod)
-                .selectColorScooter(collorScooter)
+                .selectColorScooter(colorScooter)
                 .sendTextForCourier("123")
                 .clickButtonNextFormOrder();
         // Подтверждаем заказ

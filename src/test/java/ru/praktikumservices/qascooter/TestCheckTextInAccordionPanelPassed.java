@@ -37,17 +37,17 @@ public class TestCheckTextInAccordionPanelPassed {
 
     @ParameterizedTest
     @MethodSource("textInAccordionPanel")
-    public void testCheckTextInAccordionPanelPassed(By locator_heading, By locator_paragraph, String text)  {
+    public void testCheckTextInAccordionPanelPassed(By locatorHeading, By locatorParagraph, String text)  {
         String url = "https://qa-scooter.praktikum-services.ru/";
         WebDriver driver = driverExtension.getDriver();
         driver.get(url);
         MainPage mainPage = new MainPage(driver);
         mainPage.scrollToAccordion();
-        new WebDriverWait(driver, Duration.ofSeconds(4)).until(ExpectedConditions.visibilityOfElementLocated(locator_heading));
-        driver.findElement(locator_heading).click();
-        new WebDriverWait(driver, Duration.ofSeconds(4)).until(ExpectedConditions.visibilityOfElementLocated(locator_paragraph));
-        assert driver.findElement(locator_paragraph).isDisplayed();
-        assertEquals(text, driver.findElement(locator_paragraph).getText());
+        new WebDriverWait(driver, Duration.ofSeconds(4)).until(ExpectedConditions.visibilityOfElementLocated(locatorHeading));
+        driver.findElement(locatorHeading).click();
+        new WebDriverWait(driver, Duration.ofSeconds(4)).until(ExpectedConditions.visibilityOfElementLocated(locatorParagraph));
+        assert driver.findElement(locatorParagraph).isDisplayed();
+        assertEquals(text, driver.findElement(locatorParagraph).getText());
 
     }
 
