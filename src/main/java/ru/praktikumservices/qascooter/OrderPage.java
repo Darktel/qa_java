@@ -12,25 +12,25 @@ public class OrderPage {
 
     private final WebDriver driver;
     // Заголовок "Для кого самокат"
-    private final By inputName = By.xpath("//*[@id='root']/div/div[2]/div[1]");
+    private final By inputName = By.xpath("//div[@class='Order_Header__BZXOb']");
     public final WebDriverWait wait;
 
     // Кнопка "Далее" \ Кнопка "Заказать"
     private final By buttonNextFormOrder = By.xpath("//button[@class='Button_Button__ra12g Button_Middle__1CSJM']");
     // поля формы 1
     // Поле ввода "Имя"
-    private final By inputFirstName = By.xpath("//*[@id='root']/div/div[2]/div[2]/div[1]/input");
+    private final By inputFirstName = By.xpath("//input[@placeholder='* Имя']");
     // Поле ввода "Фамилия"
-    private final By inputLastName = By.xpath("//*[@id='root']/div/div[2]/div[2]/div[2]/input");
+    private final By inputLastName = By.xpath("//input[@placeholder='* Фамилия']");
     // Поле ввода "Адрес: куда привести заказ"
-    private final By inputAddress = By.xpath("//*[@id='root']/div/div[2]/div[2]/div[3]/input");
+    private final By inputAddress = By.xpath("//input[@placeholder='* Адрес: куда привезти заказ']");
     // Выпадающий список "Станция метро"
-    private final By inputMetroStation = By.xpath("//*[@id='root']/div/div[2]/div[2]/div[4]/div/div/input");
+    private final By inputMetroStation = By.xpath("//input[@placeholder='* Станция метро']");
     // Кнопка "Телефон: на него позвонит курьер" //input[@placeholder='* Телефон: на него позвонит курьер']
     private final By inputPhone = By.xpath("//input[@placeholder='* Телефон: на него позвонит курьер']");
 
     // выбор из выпадающего списка
-    private final By buttonOrderScooterBottom = By.xpath("//*[@id='root']/div/div[2]/div[2]/div[4]/div/div[2]/ul/li[1]/button");
+    private final By buttonOrderScooterBottom = By.xpath("//button[@value='3']");
 
     // поля формы 2
     // Когда привести самокат
@@ -140,9 +140,6 @@ public class OrderPage {
         driver.findElement(buttonOrderYes).click();
     }
 
-    public boolean checkOrderScooterVisible() {
-        return driver.findElement(windowNumberOrder).isDisplayed();
-    }
 
     public String checkOrderScooterText() {
         return driver.findElement(windowNumberOrder).getText();
