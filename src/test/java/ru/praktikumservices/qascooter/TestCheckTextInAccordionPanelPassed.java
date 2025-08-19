@@ -1,11 +1,10 @@
 package ru.praktikumservices.qascooter;
 
+import org.junit.jupiter.api.extension.RegisterExtension;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.openqa.selenium.By;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -17,14 +16,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestCheckTextInAccordionPanelPassed {
 
-    private final DriverFactory driverFactory = new DriverFactory();
+@RegisterExtension
+    private DriverExtension driverExtension = new DriverExtension();
 
-    @BeforeEach
-    public void initDriver() {
-        driverFactory.initDriver();
-        String url = "https://qa-scooter.praktikum-services.ru/";
-        driverFactory.getDriver().get(url);
-    }
 
 
     private static java.util.stream.Stream<Arguments> textInAccordionPanel() {
@@ -44,7 +38,9 @@ public class TestCheckTextInAccordionPanelPassed {
     @ParameterizedTest
     @MethodSource("textInAccordionPanel")
     public void testCheckTextInAccordionPanelPassed(By locator_heading, By locator_paragraph, String text)  {
-        WebDriver driver = driverFactory.getDriver();
+        String url = "https://qa-scooter.praktikum-services.ru/";
+        WebDriver driver = driverExtension.getDriver();
+        driver.get(url);
         MainPage mainPage = new MainPage(driver);
         mainPage.scrollToAccordion();
         new WebDriverWait(driver, Duration.ofSeconds(4)).until(ExpectedConditions.visibilityOfElementLocated(locator_heading));
@@ -55,8 +51,5 @@ public class TestCheckTextInAccordionPanelPassed {
 
     }
 
-        @AfterEach
-        public void tearDown() {
-            driverFactory.getDriver().quit();
-        }
+
 }
