@@ -25,7 +25,7 @@ public class TestOrderScooterTopButtonPassed {
     public void testOrderScooterTopButtonPassed(By selectorsButtonOrder,
                                                 String firstName,
                                                 String lastName,
-                                                String Date,
+                                                String date,
                                                 String colorScooter,
                                                 Integer daysOrderPeriod) throws InterruptedException {
         String url = "https://qa-scooter.praktikum-services.ru/";
@@ -48,7 +48,7 @@ public class TestOrderScooterTopButtonPassed {
                 .clickButtonNextFormOrder();
         // Заполняем поля формы выбора даты и типа самоката
         orderPage.clickButtonNextFormOrder();
-        orderPage.fillDateOrder(Date)
+        orderPage.fillDateOrder(date)
                 .selectPeriod(daysOrderPeriod)
                 .selectColorScooter(colorScooter)
                 .sendTextForCourier("123")
@@ -86,12 +86,12 @@ public class TestOrderScooterTopButtonPassed {
 //                                                        .map(data5 -> Arguments.of(loc, data1, data2, data3, data4, data5)))))));
 
         return java.util.stream.Stream.of(
-                Arguments.of(mainPage.getButtonOrderScooterTop(), "Александр", "Гусев", "30.08.2025", "any", 3),
-                Arguments.of(mainPage.getButtonOrderScooterTop(), "user2", "LastName2", "01.02.2025", "grey", 2),
-                Arguments.of(mainPage.getButtonOrderScooterTop(), "Петя", "Бубнов", "31.12.2027", "black", 6),
-                Arguments.of(mainPage.getButtonOrderScooterMiddle(), "Александр", "Гусев", "30.08.2025", "any", 4),
-                Arguments.of(mainPage.getButtonOrderScooterMiddle(), "user2", "LastName2", "01.02.2025", "grey", 2),
-                Arguments.of(mainPage.getButtonOrderScooterMiddle(), "Петя", "Бубнов", "31.12.2027", "black", 1));
+            Arguments.of(mainPage.getButtonOrderScooterTop(), "Александр", "Гусев", "30.08.2025", "any", 3),
+            Arguments.of(mainPage.getButtonOrderScooterTop(), "user2", "LastName2", "01.02.2025", "grey", 2),
+            Arguments.of(mainPage.getButtonOrderScooterTop(), "Петя", "Бубнов", "31.12.2027", "black", 6),
+            Arguments.of(mainPage.getButtonOrderScooterMiddle(), "Александр", "Гусев", "30.08.2025", "any", 4),
+            Arguments.of(mainPage.getButtonOrderScooterMiddle(), "user2", "LastName2", "01.02.2025", "grey", 2),
+            Arguments.of(mainPage.getButtonOrderScooterMiddle(), "Петя", "Бубнов", "31.12.2027", "black", 1));
 
 
     }
