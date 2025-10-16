@@ -11,7 +11,7 @@ import static org.hamcrest.Matchers.*;
 public class TestListOrder {
     @BeforeEach
     public void setUp() {
-        RestAssured.baseURI = "https://qa-scooter.praktikum-services.ru";
+        RestAssured.baseURI = "https://qa-scooter.praktikum-services.ru/api/v1";
     }
 
     @DisplayName("Проверка корректности получения списка заказов")
@@ -20,7 +20,7 @@ public class TestListOrder {
         Response response = given()
                 .when()
                 .contentType(ContentType.JSON)
-                .get("/api/v1/orders");
+                .get("/orders");
         response.then().assertThat()
                 .statusCode(200)
                 .body("orders",  // в теле ответа есть JSON c объектом orders,

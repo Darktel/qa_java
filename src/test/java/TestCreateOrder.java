@@ -18,7 +18,7 @@ public class TestCreateOrder {
 
     @BeforeEach
     public void setUp() {
-        RestAssured.baseURI = "https://qa-scooter.praktikum-services.ru";
+        RestAssured.baseURI = "https://qa-scooter.praktikum-services.ru/api/v1";
     }
 
     static Stream<Arguments> colorCombinations() {
@@ -48,7 +48,7 @@ public class TestCreateOrder {
         Response response = given()
                 .contentType(ContentType.JSON)
                 .body(order)
-                .when().post("/api/v1/orders");
+                .when().post("/orders");
         response.then().statusCode(201)
                 .body("track", notNullValue());
 

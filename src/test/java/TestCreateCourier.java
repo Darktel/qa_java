@@ -1,54 +1,43 @@
 import io.qameta.allure.Description;
+import io.qameta.allure.Step;
 import io.restassured.RestAssured;
-import io.restassured.http.ContentType;
 import io.restassured.response.Response;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import praktikum.courier.Courier;
-import java.io.File;
+import praktikum.courier.*;
 import java.util.Map;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
-public class TestCreateCourierPassed {
-
+public class TestCreateCourier {
+    int rnd = (int) (Math.random() * 1000);
+    private Courier courier = new Courier("ninja97795"+rnd,  "1234", "saske99998"); // Поле класса
 
     @BeforeEach
     public void setUp() {
-        RestAssured.baseURI = "https://qa-scooter.praktikum-services.ru";
+        RestAssured.baseURI = "https://qa-scooter.praktikum-services.ru/api/v1";
+
     }
 
     @DisplayName("Проверка создания курьера")
     @Test
     public void TestCreateNewCourierPassed() {
-        var rnd = (int) (Math.random() * 1000);
-        var courier = new Courier("ninja97795"+rnd,  "1234", "saske99998");
-        Response response = given()
-                .contentType(ContentType.JSON)
-                .body(courier)
-                .when()
-                .post("/api/v1/courier");
+        Response response = Courier.createCourier(courier);
         response.then()
                 .statusCode(201)
                 .body("ok", equalTo(true));
     }
 
     @DisplayName("Проверка создания не уникального курьера")
-    @Description("нельзя создать двух одинаковых курьеров")
+    @Description("Нельзя создать двух одинаковых курьеров")
     @Test
     public void TestCreateNewCourierNotUnique() {
-        File json = new File("src/test/resources/newCourierJson.json");
-        Response response = given()
-                .header("Content-Type", "application/json")
-                .body(json)
-                .when()
-                .post("/api/v1/courier");
-        response.then()
-                .extract()
-                .response();
+        Courier.createCourier(courier);
+        Response response = Courier.createCourier(courier);
 
         assertEquals(409, response.getStatusCode(), "Не верный код ответа");
         assertEquals("Этот логин уже используется", response.body().jsonPath().get("message"),
@@ -60,13 +49,13 @@ public class TestCreateCourierPassed {
     @Description("Проверка, что для создать курьера в системе не получится если требуется заполнены все обязательные поля.")
     @Test
     public void TestCreateNewCourierWithoutLoginFields() {
-
-        Map<String, String> json = Map.of("password", "1234", "firstName", "saske");
+        Map<String, String> courier = Map.of("password", "1234", "firstName", "saske");
         Response response = given()
                 .header("Content-Type", "application/json")
-                .body(json)
+                .log().all()
+                .body(courier)
                 .when()
-                .post("/api/v1/courier");
+                .post("/courier");
         response.then()
                 .extract()
                 .response();
@@ -80,13 +69,12 @@ public class TestCreateCourierPassed {
     @Description("Проверка, что для создать курьера в системе не получится если требуется заполнены все обязательные поля.")
     @Test
     public void TestCreateNewCourierWithoutPasswordFields() {
-
-        Map<String, String> json = Map.of("login", "ninja7795", "firstName", "saske");
+        Map<String, String> courier = Map.of("login", "ninja7795", "firstName", "saske");
         Response response = given()
                 .header("Content-Type", "application/json")
-                .body(json)
+                .body(courier)
                 .when()
-                .post("/api/v1/courier");
+                .post("/courier");
         response.then()
                 .extract()
                 .response();
@@ -100,14 +88,15 @@ public class TestCreateCourierPassed {
     @Description("Проверка, что для создать курьера в системе не получится если требуется заполнены все обязательные поля.")
     @Test
     public void TestCreateNewCourierWithoutFirstNameFields() {
-
-        var json = Map.of("login", "ninja97795", "password", "1234");
+        var creds = Credentials.from(courier);
         Response response = given()
                 .header("Content-Type", "application/json")
-                .body(json)
+                .log().all()
+                .body(creds)
                 .when()
-                .post("/api/v1/courier");
+                .post("/courier");
         response.then()
+                .log().all()
                 .extract()
                 .response();
 
@@ -115,6 +104,13 @@ public class TestCreateCourierPassed {
         assertEquals("Недостаточно данных для создания учетной записи",
                 response.body().jsonPath().get("message"), "Не верное сообщение об ошибке");
 
+    }
+
+    @AfterEach
+    public void tearDown() {
+        if (courier != null) {
+            courier.deleteCourier(courier.getIdCourier(courier));
+        }
     }
 
 

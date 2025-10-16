@@ -1,7 +1,13 @@
 package praktikum.order;
 
+import io.restassured.http.ContentType;
+import io.restassured.response.Response;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.notNullValue;
 
 public class Order {
     public String getFirstName() {
@@ -61,6 +67,7 @@ public class Order {
         this.comment = comment;
         this.color = color;
     }
+
 
 
 
