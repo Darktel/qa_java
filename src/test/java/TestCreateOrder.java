@@ -1,7 +1,4 @@
-import io.restassured.RestAssured;
-import io.restassured.http.ContentType;
 import io.restassured.response.Response;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -10,8 +7,6 @@ import praktikum.order.BaseOrderTest;
 import praktikum.order.Order;
 import java.util.*;
 import java.util.stream.Stream;
-import static io.restassured.RestAssured.given;
-import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 
 
