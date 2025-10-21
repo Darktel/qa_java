@@ -1,106 +1,63 @@
-import io.qameta.allure.Step;
-import io.restassured.RestAssured;
-import io.restassured.http.ContentType;
 import io.restassured.response.Response;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.junit.jupiter.api.*;
+import praktikum.courier.BaseCourierTest;
 import praktikum.courier.Courier;
-import praktikum.courier.Credentials;
-
+import praktikum.courier.CredentialsLoginPassword;
 import java.util.Map;
-import static io.restassured.RestAssured.given;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.notNullValue;
 
-public class TestLoginCourier {
-
-    private static final Logger log = LoggerFactory.getLogger(TestLoginCourier.class);
+public class TestLoginCourier extends BaseCourierTest {
+    private final BaseCourierTest courierApi = new BaseCourierTest();
+//    private static final Logger log = LoggerFactory.getLogger(TestLoginCourier.class);
     private static String createdCourierId;
-    int rnd = (int) (Math.random() * 1000);
-    Courier courier = new Courier("gusev_ae"+rnd, "99998998", "Aleksandr");
+    Courier courier = new Courier("gusev_ae", "99998998", "Aleksandr");
+
 
     @BeforeEach
     public void setUp() {
-        RestAssured.baseURI = "https://qa-scooter.praktikum-services.ru/api/v1";
         // создания курьера, предаем в него параметры выше.
-        Courier.createCourier(courier);
+        courierApi.createCourier(courier);
     }
 
     @DisplayName("Проверка успешного логина курьера")
     @Test
     public void TestLoginCourierPassed() {
-        var creds = Credentials.from(courier);
-        Response response = given()
-            .contentType(ContentType.JSON)
-            .body(creds)
-            .when()
-            .post("/courier/login");
-        response.then()
-                .statusCode(200)
-                .body("id", notNullValue());
-
-        createdCourierId = response.jsonPath().getString("id");
+        var creds = CredentialsLoginPassword.from(courier);
+        Response response = courierApi.loginCourier(creds);
+        courierApi.assertSuccessLogin(response);
     }
 
     @DisplayName("Проверка логина курьера без пароля")
     @Test
     public void TestLoginCourierWithoutPassword() {
-        Response response = given()
-                .contentType(ContentType.JSON)
-                .body(Map.of("login", "gusev_ae"))
-                .when()
-                .post("/courier/login");
-        response.then()
-                .statusCode(400)
-                .body("message", equalTo("Недостаточно данных для входа"));
+        Response response = courierApi.loginCourierMapCreds(Map.of("login", "gusev_ae"));
+        courierApi.assertBadRequest(response, "Недостаточно данных для входа");
     }
 
     @DisplayName("Проверка логина курьера без логина")
     @Test
     public void TestLoginCourierWithoutLogin() {
-        Response response = given()
-                .contentType(ContentType.JSON)
-                .body(Map.of("password", "99998998"))
-                .when()
-                .post("/courier/login");
-        response.then()
-                .statusCode(400)
-                .body("message", equalTo("Недостаточно данных для входа"));
+        Response response = courierApi.loginCourierMapCreds(Map.of("password", "99998998"));
+        courierApi.assertBadRequest(response, "Недостаточно данных для входа");
+
     }
 
     @DisplayName("Проверка логина курьера с неправильным паролем")
     @Test
     public void TestLoginCourierWrongPassword() {
-        Response response = given()
-                .contentType(ContentType.JSON)
-                .body(Map.of("login", "gusev_ae", "password", "123"))
-                .when()
-                .post("/courier/login");
-        response.then()
-                .statusCode(404)
-                .body("message", equalTo("Учетная запись не найдена"));
+        Response response = courierApi.loginCourierMapCreds(Map.of("login", "gusev_ae", "password", "123"));
+        courierApi.assertNotFoundRequest(response, "Учетная запись не найдена");
     }
 
-    @DisplayName("Проверка логина курьера с неправильным паролем")
+    @DisplayName("Проверка логина курьера с неправильным логином")
     @Test
     public void TestLoginCourierWrongLogin() {
-        Response response = given()
-                .contentType(ContentType.JSON)
-                .body(Map.of("login", "gusev", "password", "99998998"))
-                .when()
-                .post("/courier/login");
-        response.then()
-                .statusCode(404)
-                .body("message", equalTo("Учетная запись не найдена"));
+        Response response = courierApi.loginCourierMapCreds(Map.of("login", "gusev", "password", "99998998"));
+        courierApi.assertNotFoundRequest(response, "Учетная запись не найдена");
     }
     @AfterEach
     public void terDown() {
         if (createdCourierId != null) {
-            courier.deleteCourier(createdCourierId);
+            courierApi.deleteCourier(courierApi.getIdCourier(CredentialsLoginPassword.from(courier)));
         }
     }
 
