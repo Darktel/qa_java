@@ -6,6 +6,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
+import praktikum.order.BaseOrderTest;
 import praktikum.order.Order;
 import java.util.*;
 import java.util.stream.Stream;
@@ -14,12 +15,8 @@ import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 
 
-public class TestCreateOrder {
-
-    @BeforeEach
-    public void setUp() {
-        RestAssured.baseURI = "https://qa-scooter.praktikum-services.ru/api/v1";
-    }
+public class TestCreateOrder extends BaseOrderTest {
+    private final BaseOrderTest baseOrderTest = new BaseOrderTest();
 
     static Stream<Arguments> colorCombinations() {
         return Stream.of(
@@ -45,12 +42,8 @@ public class TestCreateOrder {
                "+7 800 355 35 35", 5,
                "2020-06-06", "Saske, come back to Konoha",
                colors);
-        Response response = given()
-                .contentType(ContentType.JSON)
-                .body(order)
-                .when().post("/orders");
-        response.then().statusCode(201)
-                .body("track", notNullValue());
+        Response response = baseOrderTest.createOrder(order);
+        baseOrderTest.assertSuccessCreateOrder(response);
 
         // Проверяем, что это действительно int
         assertInstanceOf(Integer.class, response.jsonPath().get("track"));
