@@ -11,12 +11,12 @@ import java.util.Map;
 public class TestCreateCourier extends BaseCourierTest {
     private final BaseCourierTest apiCourier = new BaseCourierTest();
     int rnd = (int) (Math.random() * 1000);
-    private Courier courier = new Courier("ninja97795"+rnd,  "1234", "saske99998"); // Поле класса
+    private final Courier courier = new Courier("ninja97795"+rnd,  "1234", "saske99998"); // Поле класса
 
 
     @DisplayName("Проверка создания курьера")
     @Test
-    public void TestCreateNewCourierPassed() {
+    public void testCreateNewCourierPassed() {
         Response response = apiCourier.createCourier(courier);
         apiCourier.assertSuccessCreate(response);
     }
@@ -24,7 +24,7 @@ public class TestCreateCourier extends BaseCourierTest {
     @DisplayName("Проверка создания не уникального курьера")
     @Description("Нельзя создать двух одинаковых курьеров")
     @Test
-    public void TestCreateNewCourierNotUnique() {
+    public void testCreateNewCourierNotUnique() {
         apiCourier.createCourier(courier);
         Response response = apiCourier.createCourier(courier);
         apiCourier.assertOnConflict(response);
@@ -34,7 +34,7 @@ public class TestCreateCourier extends BaseCourierTest {
     @DisplayName("Проверка создания курьера с незаполненным полем login")
     @Description("Проверка, что для создать курьера в системе не получится если требуется заполнены все обязательные поля.")
     @Test
-    public void TestCreateNewCourierWithoutLoginFields() {
+    public void testCreateNewCourierWithoutLoginFields() {
         var creds = Map.of("password", "1234", "firstName", "saske");
         Response response = apiCourier.createCourier(creds);
         apiCourier.assertBadRequest(response, "Недостаточно данных для создания учетной записи");
@@ -47,7 +47,7 @@ public class TestCreateCourier extends BaseCourierTest {
     @DisplayName("Проверка создания курьера с незаполненным полем password")
     @Description("Проверка, что для создать курьера в системе не получится если требуется заполнены все обязательные поля.")
     @Test
-    public void TestCreateNewCourierWithoutPasswordFields() {
+    public void testCreateNewCourierWithoutPasswordFields() {
         var creds = Map.of("login", "ninja7795", "firstName", "saske");
         Response response = apiCourier.createCourier(creds);
         apiCourier.assertBadRequest(response, "Недостаточно данных для создания учетной записи");
@@ -59,7 +59,7 @@ public class TestCreateCourier extends BaseCourierTest {
     @DisplayName("Проверка создания курьера с незаполненным полем firstName")
     @Description("Проверка, что для создать курьера в системе не получится если требуется заполнены все обязательные поля.")
     @Test
-    public void TestCreateNewCourierWithoutFirstNameFields() {
+    public void testCreateNewCourierWithoutFirstNameFields() {
         var creds = Map.of("login", "ninja97795"+rnd, "password", "1234");
         Response response = apiCourier.createCourier(creds);
         apiCourier.assertBadRequest(response, "Недостаточно данных для создания учетной записи");

@@ -31,7 +31,7 @@ public class TestCreateOrder extends BaseOrderTest {
     @DisplayName("Проверка корректности создания заказа")
     @ParameterizedTest(name = "{0}")
     @MethodSource("colorCombinations")
-    public void TestCteateOrderPassed(String testName, List<String> colors) {
+    public void testCteateOrderPassed(String testName, List<String> colors) {
        Order order = new Order("Naruto999", "Uzumaki777",
                "Konoha, 142 apt.", "4",
                "+7 800 355 35 35", 5,

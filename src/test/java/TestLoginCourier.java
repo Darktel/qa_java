@@ -20,7 +20,7 @@ public class TestLoginCourier extends BaseCourierTest {
 
     @DisplayName("Проверка успешного логина курьера")
     @Test
-    public void TestLoginCourierPassed() {
+    public void testLoginCourierPassed() {
         var creds = CredentialsLoginPassword.from(courier);
         Response response = courierApi.loginCourier(creds);
         courierApi.assertSuccessLogin(response);
@@ -28,14 +28,14 @@ public class TestLoginCourier extends BaseCourierTest {
 
     @DisplayName("Проверка логина курьера без пароля")
     @Test
-    public void TestLoginCourierWithoutPassword() {
+    public void testLoginCourierWithoutPassword() {
         Response response = courierApi.loginCourierMapCreds(Map.of("login", "gusev_ae"));
         courierApi.assertBadRequest(response, "Недостаточно данных для входа");
     }
 
     @DisplayName("Проверка логина курьера без логина")
     @Test
-    public void TestLoginCourierWithoutLogin() {
+    public void testLoginCourierWithoutLogin() {
         Response response = courierApi.loginCourierMapCreds(Map.of("password", "99998998"));
         courierApi.assertBadRequest(response, "Недостаточно данных для входа");
 
@@ -43,14 +43,14 @@ public class TestLoginCourier extends BaseCourierTest {
 
     @DisplayName("Проверка логина курьера с неправильным паролем")
     @Test
-    public void TestLoginCourierWrongPassword() {
+    public void testLoginCourierWrongPassword() {
         Response response = courierApi.loginCourierMapCreds(Map.of("login", "gusev_ae", "password", "123"));
         courierApi.assertNotFoundRequest(response, "Учетная запись не найдена");
     }
 
     @DisplayName("Проверка логина курьера с неправильным логином")
     @Test
-    public void TestLoginCourierWrongLogin() {
+    public void testLoginCourierWrongLogin() {
         Response response = courierApi.loginCourierMapCreds(Map.of("login", "gusev", "password", "99998998"));
         courierApi.assertNotFoundRequest(response, "Учетная запись не найдена");
     }
