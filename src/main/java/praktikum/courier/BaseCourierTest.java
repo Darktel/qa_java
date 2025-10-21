@@ -39,7 +39,7 @@ public class BaseCourierTest {
                 .post("/courier");
     }
 
-    @Step("Логин курьера {credentials}")
+    @Step("Логин курьера")
     public Response loginCourier(CredentialsLoginPassword credentials) {
         return given()
                 .contentType(ContentType.JSON)
@@ -56,7 +56,7 @@ public class BaseCourierTest {
                 .post("/courier/login");
     }
 
-    @Step("Получение ID Курьера {credentials}")
+    @Step("Получение ID Курьера")
     public String getIdCourier(CredentialsLoginPassword credentials) {
         Response response = given()
                 .contentType(ContentType.JSON)
