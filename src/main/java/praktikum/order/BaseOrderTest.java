@@ -1,5 +1,6 @@
 package praktikum.order;
 
+import io.qameta.allure.Step;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
@@ -16,6 +17,7 @@ public class BaseOrderTest {
         RestAssured.baseURI = BASE_URL;
     }
 
+    @Step("Создание заказа")
     public Response createOrder(Order orderData) {
         return given()
                 .contentType(ContentType.JSON)
@@ -25,9 +27,25 @@ public class BaseOrderTest {
                 .post("/orders");
     }
 
+    @Step("Проверка корректности создания заказа")
     public void assertSuccessCreateOrder(Response response) {
         response.then()
                 .statusCode(201)
                 .body("track", notNullValue());
     }
+
+    @Step("Получение списка заказов")
+    public Response getOrderList() {
+        return given()
+                .when()
+                .get("/orders");
+    }
+
+    @Step("Проверка корректности получения списка заказов")
+    public void assertSuccessGetOrderList(Response response) {
+        response.then()
+                .statusCode(200)
+                .body("orders", notNullValue());
+    }
+
 }
