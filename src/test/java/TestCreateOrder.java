@@ -3,14 +3,14 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import praktikum.order.BaseOrderTest;
-import praktikum.order.Order;
+import praktikum.base.BaseOrderTest;
+import praktikum.models.Order;
 import java.util.*;
 import java.util.stream.Stream;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 
 
-public class TestCreateOrder extends BaseOrderTest {
+public class TestCreateOrder {
     private final BaseOrderTest baseOrderTest = new BaseOrderTest();
 
     static Stream<Arguments> colorCombinations() {

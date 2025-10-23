@@ -3,12 +3,15 @@ import io.restassured.response.Response;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import praktikum.base.BaseCourierTest;
 import praktikum.courier.*;
+import praktikum.models.Courier;
+
 import java.util.Map;
 
 
 
-public class TestCreateCourier extends BaseCourierTest {
+public class TestCreateCourier {
     private final BaseCourierTest apiCourier = new BaseCourierTest();
     int rnd = (int) (Math.random() * 1000);
     private final Courier courier = new Courier("ninja97795"+rnd,  "1234", "saske99998"); // Поле класса

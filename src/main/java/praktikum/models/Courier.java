@@ -1,4 +1,4 @@
-package praktikum.courier;
+package praktikum.models;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

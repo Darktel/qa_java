@@ -1,11 +1,11 @@
 import io.restassured.response.Response;
 import org.junit.jupiter.api.*;
-import praktikum.courier.BaseCourierTest;
-import praktikum.courier.Courier;
+import praktikum.base.BaseCourierTest;
+import praktikum.models.Courier;
 import praktikum.courier.CredentialsLoginPassword;
 import java.util.Map;
 
-public class TestLoginCourier extends BaseCourierTest {
+public class TestLoginCourier {
     private final BaseCourierTest courierApi = new BaseCourierTest();
 //    private static final Logger log = LoggerFactory.getLogger(TestLoginCourier.class);
     private static String createdCourierId;

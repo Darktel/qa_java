@@ -1,10 +1,12 @@
-package praktikum.courier;
+package praktikum.base;
 
 import io.qameta.allure.Step;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.BeforeAll;
+import praktikum.models.Courier;
+import praktikum.courier.CredentialsLoginPassword;
 
 import java.util.Map;
 
@@ -13,18 +15,14 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.notNullValue;
 
 public class BaseCourierTest {
-    private static final String BASE_URL = "https://qa-scooter.praktikum-services.ru/api/v1";
+    BaseHttpClient baseHttpClient = new BaseHttpClient();
 
-    @BeforeAll
-    public static void setup() {
-        RestAssured.baseURI = BASE_URL;
-    }
 
     // Метод для создания курьера
     @Step("Создание курьера")
     public Response createCourier(Courier courierData) {
         return given()
-                .contentType(ContentType.JSON)
+                .spec(baseHttpClient.requestSpecification)
                 .body(courierData)
                 .when()
                 .post("/courier");
@@ -33,7 +31,7 @@ public class BaseCourierTest {
     @Step("Создание курьера, используя параметры: {courierData}")
     public Response createCourier(Map<String, String> courierData) {
         return given()
-                .contentType(ContentType.JSON)
+                .spec(baseHttpClient.requestSpecification)
                 .body(courierData)
                 .when()
                 .post("/courier");
@@ -42,7 +40,7 @@ public class BaseCourierTest {
     @Step("Логин курьера")
     public Response loginCourier(CredentialsLoginPassword credentials) {
         return given()
-                .contentType(ContentType.JSON)
+                .spec(baseHttpClient.requestSpecification)
                 .body(credentials)
                 .when()
                 .post("/courier/login");
@@ -59,7 +57,7 @@ public class BaseCourierTest {
     @Step("Получение ID Курьера")
     public String getIdCourier(CredentialsLoginPassword credentials) {
         Response response = given()
-                .contentType(ContentType.JSON)
+                .spec(baseHttpClient.requestSpecification)
                 .body(credentials)
                 .when()
                 .post("/courier/login");
@@ -70,7 +68,7 @@ public class BaseCourierTest {
     @Step("Получение ID Курьера {credentials}")
     public String getIdCourier(Map<String, String> credentials) {
         Response response = given()
-                .contentType(ContentType.JSON)
+                .spec(baseHttpClient.requestSpecification)
                 .body(credentials)
                 .when()
                 .post("/courier/login");
@@ -81,8 +79,8 @@ public class BaseCourierTest {
     @Step("Удаление курьра")
     public Response deleteCourier(String id) {
         return given()
-                .contentType(ContentType.JSON)
-                .when().delete("/courier/" + id);
+                .spec(baseHttpClient.requestSpecification)
+                .when().delete("courier/" + id);
     }
 
     @Step("Проверка успешного ответа при логине курьера и что id не пустой")

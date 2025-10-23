@@ -1,5 +1,7 @@
 package praktikum.courier;
 
+import praktikum.models.Courier;
+
 public class CredentialsLoginPassword {
     private String login;
     private String password;

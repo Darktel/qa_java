@@ -1,11 +1,11 @@
 import io.restassured.response.Response;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import praktikum.order.BaseOrderTest;
+import praktikum.base.BaseOrderTest;
 
 
 
-public class TestListOrder extends BaseOrderTest {
+public class TestListOrder {
     private final BaseOrderTest baseOrderTest = new BaseOrderTest();
 
     @DisplayName("Проверка корректности получения списка заказов")

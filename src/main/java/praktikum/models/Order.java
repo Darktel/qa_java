@@ -1,4 +1,4 @@
-package praktikum.order;
+package praktikum.models;
 
 import java.util.List;
 import lombok.Getter;
