@@ -9,7 +9,7 @@ import io.restassured.specification.RequestSpecification;
 
 public  class BaseHttpClient {
 
-    protected RequestSpecification requestSpecification = new RequestSpecBuilder()
+    public RequestSpecification requestSpecification = new RequestSpecBuilder()
             .setBaseUri("https://qa-scooter.praktikum-services.ru/api/v1")
             .addHeader("Content-Type", "application/json")
             .setRelaxedHTTPSValidation()

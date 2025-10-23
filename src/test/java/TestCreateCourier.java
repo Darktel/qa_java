@@ -3,7 +3,7 @@ import io.restassured.response.Response;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import praktikum.base.BaseCourierTest;
+import praktikum.courier.CourierClient;
 import praktikum.courier.*;
 import praktikum.models.Courier;
 
@@ -12,7 +12,8 @@ import java.util.Map;
 
 
 public class TestCreateCourier {
-    private final BaseCourierTest apiCourier = new BaseCourierTest();
+    private final CourierClient apiCourier = new CourierClient();
+    private final CourierChecks check = new CourierChecks();
     int rnd = (int) (Math.random() * 1000);
     private final Courier courier = new Courier("ninja97795"+rnd,  "1234", "saske99998"); // Поле класса
 
@@ -21,7 +22,7 @@ public class TestCreateCourier {
     @Test
     public void testCreateNewCourierPassed() {
         Response response = apiCourier.createCourier(courier);
-        apiCourier.assertSuccessCreate(response);
+        check.assertSuccessCreate(response);
     }
 
     @DisplayName("Проверка создания не уникального курьера")
@@ -30,7 +31,7 @@ public class TestCreateCourier {
     public void testCreateNewCourierNotUnique() {
         apiCourier.createCourier(courier);
         Response response = apiCourier.createCourier(courier);
-        apiCourier.assertOnConflict(response);
+        check.assertOnConflict(response);
     }
 
 
@@ -40,7 +41,7 @@ public class TestCreateCourier {
     public void testCreateNewCourierWithoutLoginFields() {
         var creds = Map.of("password", "1234", "firstName", "saske");
         Response response = apiCourier.createCourier(creds);
-        apiCourier.assertBadRequest(response, "Недостаточно данных для создания учетной записи");
+        check.assertBadRequest(response, "Недостаточно данных для создания учетной записи");
 
         if (response.getStatusCode()==201){
             apiCourier.deleteCourier(apiCourier.getIdCourier(creds));
@@ -53,7 +54,7 @@ public class TestCreateCourier {
     public void testCreateNewCourierWithoutPasswordFields() {
         var creds = Map.of("login", "ninja7795", "firstName", "saske");
         Response response = apiCourier.createCourier(creds);
-        apiCourier.assertBadRequest(response, "Недостаточно данных для создания учетной записи");
+        check.assertBadRequest(response, "Недостаточно данных для создания учетной записи");
         if (response.getStatusCode()==201){
             apiCourier.deleteCourier(apiCourier.getIdCourier(creds));
         }
@@ -65,7 +66,7 @@ public class TestCreateCourier {
     public void testCreateNewCourierWithoutFirstNameFields() {
         var creds = Map.of("login", "ninja97795"+rnd, "password", "1234");
         Response response = apiCourier.createCourier(creds);
-        apiCourier.assertBadRequest(response, "Недостаточно данных для создания учетной записи");
+        check.assertBadRequest(response, "Недостаточно данных для создания учетной записи");
         if (response.getStatusCode()==201){
             apiCourier.deleteCourier(apiCourier.getIdCourier(creds));
         }

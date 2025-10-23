@@ -3,7 +3,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import praktikum.base.BaseOrderTest;
+import praktikum.order.OrderChecks;
+import praktikum.order.OrderClient;
 import praktikum.models.Order;
 import java.util.*;
 import java.util.stream.Stream;
@@ -11,7 +12,8 @@ import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 
 
 public class TestCreateOrder {
-    private final BaseOrderTest baseOrderTest = new BaseOrderTest();
+    private final OrderClient orderClient = new OrderClient();
+    private final OrderChecks check = new OrderChecks();
 
     static Stream<Arguments> colorCombinations() {
         return Stream.of(
@@ -37,8 +39,8 @@ public class TestCreateOrder {
                "+7 800 355 35 35", 5,
                "2020-06-06", "Saske, come back to Konoha",
                colors);
-        Response response = baseOrderTest.createOrder(order);
-        baseOrderTest.assertSuccessCreateOrder(response);
+        Response response = orderClient.createOrder(order);
+        check.assertSuccessCreateOrder(response);
 
         // Проверяем, что это действительно int
         assertInstanceOf(Integer.class, response.jsonPath().get("track"));

@@ -1,12 +1,10 @@
-package praktikum.base;
+package praktikum.courier;
 
 import io.qameta.allure.Step;
-import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
-import org.junit.jupiter.api.BeforeAll;
+import praktikum.base.BaseHttpClient;
 import praktikum.models.Courier;
-import praktikum.courier.CredentialsLoginPassword;
 
 import java.util.Map;
 
@@ -14,7 +12,7 @@ import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.notNullValue;
 
-public class BaseCourierTest {
+public class CourierClient {
     BaseHttpClient baseHttpClient = new BaseHttpClient();
 
 
@@ -48,6 +46,7 @@ public class BaseCourierTest {
     @Step("Логин курьера используя параметры: {credentials}")
     public Response loginCourierMapCreds(Map<String, String> credentials) {
         return given()
+                .spec(baseHttpClient.requestSpecification)
                 .contentType(ContentType.JSON)
                 .body(credentials)
                 .when()
@@ -81,42 +80,5 @@ public class BaseCourierTest {
         return given()
                 .spec(baseHttpClient.requestSpecification)
                 .when().delete("courier/" + id);
-    }
-
-    @Step("Проверка успешного ответа при логине курьера и что id не пустой")
-    public void assertSuccessLogin(Response response) {
-        response.then()
-                .statusCode(200)
-                .body("id", notNullValue());
-    }
-
-
-    // Метод для проверки ошибки (400 + сообщение)
-    @Step("Проверка на код ответа 400 и корректное сообщение об ошибке")
-    public void assertBadRequest(Response response, String expectedMessage) {
-        response.then()
-                .statusCode(400)
-                .body("message", equalTo(expectedMessage));
-    }
-
-    @Step("Проверка на код ответа 404 и корректное сообщение об ошибке")
-    public void assertNotFoundRequest(Response response, String expectedMessage) {
-        response.then()
-                .statusCode(404)
-                .body("message", equalTo(expectedMessage));
-    }
-
-    @Step("Проверка что Произошло успешное создание курьера")
-    public void assertSuccessCreate(Response response) {
-        response.then()
-                .statusCode(201)
-                .body("ok", equalTo(true));
-    }
-
-    @Step("Проверка на код ответа 409 и корректное сообщение об ошибке")
-    public void assertOnConflict(Response response) {
-        response.then()
-                .statusCode(409)
-                .body("message", equalTo("Этот логин уже используется"));
     }
 }
