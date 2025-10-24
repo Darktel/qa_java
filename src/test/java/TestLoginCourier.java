@@ -56,7 +56,7 @@ public class TestLoginCourier {
         check.assertNotFoundRequest(response, "Учетная запись не найдена");
     }
     @AfterEach
-    public void terDown() {
+    public void tearDown() {
         courierApi.deleteCourier(courierApi.getIdCourier(CredentialsLoginPassword.from(courier)));
     }
 
